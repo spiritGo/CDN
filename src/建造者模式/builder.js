@@ -36,7 +36,7 @@ var Work = function(work) {
         that.work = "设计师";
         that.workDescript = "设计更是一种艺术";
         break;
-      case "code":
+      case "教师":
         that.work = "教师";
         that.workDescript = "分享也是一种快乐";
         break;
@@ -70,3 +70,7 @@ console.log(xiaoming.name);
 xiaoming.work.changeWork("教师");
 xiaoming.work.changeDescript("教师也很忙");
 console.log(xiaoming.work);
+
+var xiaofeng = new Person("xiao feng", "教师");
+console.log(xiaofeng.name);
+console.log(xiaofeng.work);
