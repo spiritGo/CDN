@@ -678,35 +678,19 @@ SHOW COLUMNS FROM table04;
 ![ALTER 命令](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/modify.png)<br/>
 ![ALTER 命令](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/change.png)<br/>
 
-## MySQL 索引
-
----
-
-语法 :
-
-> xxx
-
-```sql
-
-```
-
-如图<br/>
-![索引](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
-
 ## MySQL 临时表
 
 ---
 
-语法 :
+_如果你使用了其他 MySQL 客户端程序连接 MySQL 数据库服务器来创建临时表，那么只有在关闭客户端程序时才会销毁临时表，当然你也可以手动销毁_
 
-> xxx
+语法 : 与普通的表操作一样, 只不过创建的时候要在 TABLE 前加 TEMPORARY
+
+> CREATE TEMPORARY TABLE table_name (column_name1 type, column_name2 type, ...);
 
 ```sql
-
+CREATE TEMPORARY TABLE temp (id INT PRIMARY KEY, name VARCHAR(20));
 ```
-
-如图<br/>
-![临时表](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 复制表
 
@@ -714,146 +698,106 @@ SHOW COLUMNS FROM table04;
 
 语法 :
 
-> xxx
+> CREATE TABLE clone_table (column1 type, column2 type...);<br>
+> INSERT INTO clone_table (column1, column2...) SELECT column1, column2... FROM table_name;
+
+> CREATE TABLE targetTable LIKE sourceTable;<br>
+> INSERT INTO targetTable SELECT \* FROM sourceTable;
+
+> 创建表的同时定义表中的字段信息, 新表列必须是原表里有的<br/>
+> CREATE TABLE new_table (column1 type, column2...) AS (SELECT \* FROM sourceTable);
+
+> 拷贝一个表中其中的一些字段<br/>
+> CREATE TABLE new_table AS (SELECT column_name1, column_name2 FROM sourceTable);
+
+> 可以将新建的表的字段改名<br/>
+> CREATE TABLE new_table AS (SELECT column_name1, column_name2 AS new_column_name2... FROM sourceTable);
 
 ```sql
+# 方式一
+CREATE TABLE table05 (id INT PRIMARY KEY, name VARCHAR(50));
+INSERT INTO table05 (id, name) SELECT id, name FROM table04;
 
+# 方式二
+CREATE TABLE table06 LIKE table05;
+INSERT INTO table06 SELECT * FROM table05;
+
+# 方式三
+CREATE TABLE table07 (id INT) AS (SELECT * FROM table06);
 ```
 
 如图<br/>
-![复制表](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
+![复制表](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/clone.png)
 
 ## MySQL 元数据
 
----
+**获取服务器元数据**
 
-语法 :
-
-> xxx
-
-```sql
-
-```
-
-如图<br/>
-![元数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
+| 命令               | 描述                      |
+| ------------------ | ------------------------- |
+| SELECT VERSION( )  | 服务器版本信息            |
+| SELECT DATABASE( ) | 当前数据库名 (或者返回空) |
+| SELECT USER( )     | 当前用户名                |
+| SHOW STATUS        | 服务器状态                |
+| SHOW VARIABLES     | 服务器配置变量            |
 
 ## MySQL 序列使用
 
 ---
 
+_MySQL 序列是一组整数：1, 2, 3, ...，由于一张数据表只能有一个字段自增主键， 如果你想实现其他字段也实现自动增加，就可以使用 MySQL 序列来实现_
+
 语法 :
 
-> xxx
+> 使用 AUTO_INCREMENT
+>
+> CREATE TABLE table_name ( id INT PRIMARY KEY AUTO_INCREMENT );
+>
+> 重置序列 <br/>
+> 如果你删除了数据表中的多条记录，并希望对剩下数据的 AUTO_INCREMENT 列进行重新排列，那么你可以通过删除自增的列，然后重新添加来实现。 不过该操作要非常小心，如果在删除的同时又有新记录添加，有可能会出现数据混乱。
+>
+> ALTER TABLE table_name DROP id;<br/>
+> ALTER TABLE table_name ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (id);
 
 ```sql
+# 我们来重置一下 table05 的序列吧
+SELECT * FROM table05;
+ALTER TABLE table05 DROP id;
+ALTER TABLE table05 ADD id INT PRIMARY KEY AUTO_INCREMENT;
 
+# 如果需要 id 在第一列显示, 在 add 命令中加 first 字段即可
+ALTER TABLE table05 ADD id INT PRIMARY KEY AUTO_INCREMENT FIRST;
 ```
 
 如图<br/>
-![序列使用](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
+![序列使用](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/resetindex.png)
 
 ## MySQL 处理重复数据
 
 ---
 
-语法 :
+_在 MySQL 数据表中设置指定的字段为 PRIMARY KEY（主键） 或者 UNIQUE（唯一） 索引来保证数据的唯一性。_
 
-> xxx
+_ 如果你设置了双主键，那么那个键的默认值不能为 NULL，可设置为 NOT NULL_
+
+> CREAT TABLE table_name (coumn type PRIMARY KEY);
+>
+> CREATE TABLE table_name ( column1 type NOT NULL, column2 type NOT NULL, PRIMARY KEY (column1, column2) );
+
+> 用 INSERT IGNORE INTO 代替 INSERT INTO 来插入数据 <br/>
+> INSERT IGNORE INTO 与 INSERT INTO 的区别就是 INSERT IGNORE 会忽略数据库中已经存在的数据，如果数据库没有数据，就插入新的数据，如果有数据的话就跳过这条数据。
+
+> REPLACE INTO 代替 INSERT INTO <br/>
+> REPLACE INTO 如果存在 primary 或 unique 相同的记录，则先删除掉。再插入新记录
 
 ```sql
+CREATE TABLE table08 (id INT AUTO_INCREMENT, title VARCHAR(20), age INT UNIQUE, PRIMARY KEY (id, title));
 
+INSERT INTO table08 (title, age) VALUES ("tom", 25);
+INSERT IGNORE INTO table08 (title, age) VALUES ("tom", 25);
+REPLACE INTO table08 (title, age) VALUES ("tom", 20);
+REPLACE INTO table08 (title, age) VALUES ("tony", 20);
 ```
 
 如图<br/>
-![处理重复数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
-
-## MySQL SQL 注入
-
----
-
-语法 :
-
-> xxx
-
-```sql
-
-```
-
-如图<br/>
-![SQL 注入](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
-
-## MySQL 导出数据
-
----
-
-语法 :
-
-> xxx
-
-```sql
-
-```
-
-如图<br/>
-![导出数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
-
-## MySQL 导入数据
-
----
-
-语法 :
-
-> xxx
-
-```sql
-
-```
-
-如图<br/>
-![导入数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
-
-## MySQL 函数
-
----
-
-语法 :
-
-> xxx
-
-```sql
-
-```
-
-如图<br/>
-![函数](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
-
-## MySQL 运算符
-
----
-
-语法 :
-
-> xxx
-
-```sql
-
-```
-
-如图<br/>
-![运算符](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
-
-## MySQL xxx
-
----
-
-语法 :
-
-> xxx
-
-```sql
-
-```
-
-如图<br/>
-![xxx](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
+![处理重复数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/repeat.png)
