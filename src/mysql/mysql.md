@@ -114,6 +114,25 @@ DROP TABLE table01;
 如图<br/>
 ![删除数据表](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/drop-table.png)
 
+## 查看表结构的几种方式
+
+语法 :
+
+> SHOW COLUMNS FROM table_name;
+>
+> DESC table_name;
+
+```sql
+# show
+SHOW COLUMNS FROM table04;
+
+# desc
+DESC table04;
+```
+
+如图<br/>
+![删除数据表](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/seetable.png)
+
 ## MySQL 插入数据
 
 ---
@@ -585,16 +604,79 @@ SELECT * FROM table04;
 
 ---
 
-语法 :
+_当我们需要修改数据表名或者修改数据表字段时，就需要使用到 MySQL ALTER 命令。_
 
-> xxx
+数据表的更改 及 数据表字段的增删改, 下文 type 是数据类型:
+
+> 增 : MySQL 在 ALTER 命令中使用 ADD 子句来向数据表中添加列
+>
+> `ALTER TABLE table_name ADD column_name type;`
+>
+> 删 : MySQL 在 ALTER 命令中使用 DROP 子句来删除原本表中存在的字段
+>
+> `ALTER TABLE table_name DROP column_name;`
+>
+> 改 : MySQL 在 ALTER 命令中使用 MODIFY 或 CHANGE 子句 来修改字段类型及名称
+>
+> - 使用 MODIFY 子句更改字段类型
+>
+>   `ALTER TABLE table_name MODIFY column_name type;`
+>
+> - 使用 CHANGE 子句, 语法有很大的不同。 在 CHANGE 关键字之后，紧跟着的是你要修改的字段名，然后指定新字段名及类型。
+>
+>   `ALTER TABLE table_name CHANGE old_column_name new_column_name type;`
+>
+> ALTER TABLE 对 Null 值和默认值的影响, 当你修改字段时，你可以指定是否包含值或者是否设置默认值<br/>
+> 如果你不设置默认值，MySQL 会自动设置该字段默认为 NULL
+>
+> `ALTER TABLE table_name MODIFY column_name type NOT NULL DEFAULT type_value;`
+>
+> 使用 ALTER 来修改字段的默认值
+>
+> `ALTER TABLE table_name ALTER column_name SET DEFAULT type_value;`
+>
+> 使用 ALTER 命令及 DROP 子句来删除字段的默认值
+>
+> `ALTER TABLE table_name ALTER column_name DROP DEFAULT;`
+>
+> 修改表名
+>
+> `ALTER TABLE table_name RENAME TO new_table_name;`
 
 ```sql
+# 查看 table4 的表结构
+SHOW COLUMNS FROM table04;
 
+# 往 table04 中添加一列, 列名为 sex, 类型为 varchar(2)
+ALTER TABLE table04 ADD sex varchar(2);
+
+# 再次查看 table4 的表结构, 新增了 sex 列
+SHOW COLUMNS FROM table04;
+
+# 删除刚刚创建的列 sex
+ALTER TABLE table04 DROP sex;
+
+# 再次查看 table4 的表结构, 明显没有了 sex 列
+SHOW COLUMNS FROM table04;
+
+# 更改 table4 中 title 字段的类型为 varchar(50)
+ALTER TABLE table04 MODIFY title VARCHAR(50);
+
+# 再次查看 table4 的表结构, title 字段的 varchar(100) 变成了 varchar(50)
+SHOW COLUMNS FROM table04;
+
+# 更改 table04 中 title 字段名为 name
+ALTER TABLE table04 CHANGE title name VARCHAR(50);
+
+# 再次查看 table4 的表结构, title 字段名变成了 name
+SHOW COLUMNS FROM table04;
 ```
 
 如图<br/>
-![ALTER 命令](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
+![ALTER 命令](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/add.png)<br/>
+![ALTER 命令](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/drop.png)<br/>
+![ALTER 命令](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/modify.png)<br/>
+![ALTER 命令](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/change.png)<br/>
 
 ## MySQL 索引
 
