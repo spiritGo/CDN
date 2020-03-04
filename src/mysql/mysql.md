@@ -1,3 +1,5 @@
+@[TOC]
+
 # MYSQL
 
 ## 安装 MYSQL [MYSQL 下载](https://dev.mysql.com/downloads/mysql/)
@@ -8,18 +10,18 @@
 
 打开控制台, 输入以下命令回车, 会叫我们填写密码, 填写好密码回车, 如果没有密码就直接回车
 
-```SQL
+```sql
 mysql -u root -p
 ```
 
 退出 MYSQL 可用 exit 命令
 
-```SQL
+```sql
 mysql> exit
 ```
 
 如图是连接成功界面<br/>
-![连接成功](./images/login-success.png)
+![连接成功](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/login-success.png)
 
 ## create 命令创建数据库
 
@@ -29,12 +31,12 @@ mysql> exit
 
 > CREATE DATABASE 数据库名;
 
-```SQL
+```sql
 CREATE DATABASE databasename;
 ```
 
 如图是成功创建界面<br/>
-![创建数据库成功](./images/create-database.png)
+![创建数据库成功](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/create-database.png)
 
 ## drop 命令删除数据库
 
@@ -44,12 +46,12 @@ CREATE DATABASE databasename;
 
 > DROP DATABASE 数据库名
 
-```SQL
+```sql
 DROP DATABASE me;
 ```
 
 如图<br/>
-![删除数据库](./images/drop-database.png)
+![删除数据库](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/drop-database.png)
 
 ## use 命令选择数据库
 
@@ -59,12 +61,12 @@ DROP DATABASE me;
 
 > USE 数据库名;
 
-```SQL
+```sql
 USE me;
 ```
 
 如图<br/>
-![选择数据库](./images/use.png)
+![选择数据库](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/use.png)
 
 执行完 use 命令后我们就选择了数据库, 后续操作都会在我们选择的这个数据库中执行
 
@@ -76,7 +78,7 @@ USE me;
 
 > CREATE TABLE table_name (column_name column_type);
 
-```SQL
+```sql
 CREATE TABLE IF NOT EXISTS `table01` (
     id INT AUTO_INCREMENT,
     title VARCHAR(100),
@@ -85,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `table01` (
 ```
 
 如图<br/>
-![创建数据表](./images/create-table.png)
+![创建数据表](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/create-table.png)
 
 解析 :
 
@@ -105,12 +107,12 @@ CREATE TABLE IF NOT EXISTS `table01` (
 
 让我们来把上面我们创建好的 table01 删了吧
 
-```SQL
+```sql
 DROP TABLE table01;
 ```
 
 如图<br/>
-![删除数据表](./images/drop-table.png)
+![删除数据表](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/drop-table.png)
 
 ## MySQL 插入数据
 
@@ -128,7 +130,7 @@ DROP TABLE table01;
 
 现在, 让我们把 table01 创建回去, 再往里面的 title 列添加一些数据吧
 
-```SQL
+```sql
 # 创建 table01 数据表
 CREATE TABLE IF NOT EXISTS `table01` (
     id INT AUTO_INCREMENT,
@@ -144,7 +146,7 @@ SELECT * FROM table01;
 ```
 
 如图<br/>
-![插入数据](./images/insert.png)
+![插入数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/insert.png)
 
 ## MySQL 查询数据
 
@@ -166,7 +168,7 @@ SELECT * FROM table01;
 
 为了演示该语法, 让我们再去添加一些数据吧
 
-```SQL
+```sql
 # 添加更多的数据
 INSERT INTO table01 (title) VALUES ('tony');
 INSERT INTO table01 (title) VALUES ('lily');
@@ -191,9 +193,9 @@ SELECT * FROM table01 LIMIT 2 OFFSET 1;
 ```
 
 如图<br/>
-![查询数据](./images/select1.png) <br/>
-![查询数据](./images/select2.png) <br/>
-![查询数据](./images/select3.png)
+![查询数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/select1.png) <br/>
+![查询数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/select2.png) <br/>
+![查询数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/select3.png)
 
 ## MySQL WHERE 子句
 
@@ -210,15 +212,15 @@ SELECT * FROM table01 LIMIT 2 OFFSET 1;
 - WHERE 子句也可以运用于 SQL 的 DELETE 或者 UPDATE 命令。
 - WHERE 子句类似于程序语言中的 if 条件，根据 MySQL 表中的字段值来读取指定的数据。
 - WHERE 子句可以使用常用的比较运算符, 借图 :
-  ![WHERE 子句](./images/where1.png)
+  ![WHERE 子句](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/where1.png)
 
-```SQL
+```sql
 SELECT title FROM table01 WHERE title = "tome" AND title = "tony";
 SELECT title FROM table01 WHERE title = "tome" OR title = "tony";
 ```
 
 如图<br/>
-![WHERE 子句](./images/where.png)
+![WHERE 子句](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/where.png)
 
 ## MySQL UPDATE 更新
 
@@ -233,7 +235,7 @@ SELECT title FROM table01 WHERE title = "tome" OR title = "tony";
 - 你可以在 WHERE 子句中指定任何条件。
 - 你可以在一个单独表中同时更新数据。
 
-```SQL
+```sql
 # 看下表结构先
 SELECT * FROM table01;
 
@@ -245,7 +247,7 @@ SELECT * FROM table01;
 ```
 
 如图<br/>
-![UPDATE 更新](./images/update.png)
+![UPDATE 更新](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/update.png)
 
 ## MySQL DELETE 语句
 
@@ -258,7 +260,7 @@ SELECT * FROM table01;
 - 如果没有指定 WHERE 子句，MySQL 表中的所有记录将被删除。
 - 你可以在 WHERE 子句中指定任何条件
 
-```SQL
+```sql
 # 查看表内容
 SELECT * FROM table01;
 
@@ -270,7 +272,7 @@ SELECT * FROM table01;
 ```
 
 如图<br/>
-![DELETE 语句](./images/delete.png)
+![DELETE 语句](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/delete.png)
 
 ## MySQL LIKE 子句
 
@@ -294,13 +296,13 @@ _如果没有使用百分号 %, LIKE 子句与等号 = 的效果是一样的。_
 - 你可以在 DELETE 或 UPDATE 命令中使用 WHERE...LIKE 子句来指定条件。
 - 该字段可用于做模糊查询
 
-```SQL
+```sql
 # 查询 title 中带有 y 字符的行
 SELECT * FROM table01 WHERE title LIKE "%y";
 ```
 
 如图<br/>
-![LIKE 子句](./images/like.png)
+![LIKE 子句](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/like.png)
 
 ## MySQL UNION 操作符
 
@@ -324,7 +326,7 @@ _MySQL UNION 操作符用于连接两个以上的 SELECT 语句的结果组合�
 - DISTINCT: 可选，删除结果集中重复的数据。默认情况下 UNION 操作符已经删除了重复数据，所以 DISTINCT 修饰符对结果没啥影响。
 - ALL: 可选，返回所有结果集，包含重复数据。
 
-```SQL
+```sql
 # 再建一个表 table02
 CREATE TABLE table02 ( id INT AUTO_INCREMENT, title VARCHAR(100), PRIMARY KEY (id) );
 
@@ -342,8 +344,8 @@ SELECT title FROM table01 UNION DISTINCT SELECT title FROM table02;
 ```
 
 如图<br/>
-![UNION 操作符](./images/union.png)<br/>
-![UNION 操作符](./images/union1.png)<br/>
+![UNION 操作符](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/union.png)<br/>
+![UNION 操作符](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/union1.png)<br/>
 
 `注意 : 如图, select 必须要指定检索的列, 否则不能去重`
 
@@ -361,13 +363,13 @@ SELECT title FROM table01 UNION DISTINCT SELECT title FROM table02;
 - 你可以使用 ASC 或 DESC 关键字来设置查询结果是按升序或降序排列。 默认情况下，它是按升序排列。
 - 你可以添加 WHERE...LIKE 子句来设置条件。
 
-```SQL
+```sql
 # 将 table01 的数据以 id 降序来查询
 SELECT * FROM table01 ORDER BY id DESC;
 ```
 
 如图<br/>
-![排序](./images/orderby.png)
+![排序](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/orderby.png)
 
 ## MySQL GROUP BY 语句(分组)
 
@@ -393,9 +395,9 @@ _在分组的列上我们可以使用 COUNT, SUM, AVG,等函数。_
 
   > select coalesce(a,b,c);
 
-  - 如果 a==null,则选择 b；如果 b==null,则选择 c；如果 a!=null,则选择 a；如果 a b c 都为 null ，则返回为 null（没意义）
+  - 如果 a\==null,则选择 b；如果 b==null,则选择 c；如果 a!=null,则选择 a；如果 a b c 都为 null ，则返回为 null（没意义）
 
-```SQL
+```sql
 # 将 table01 中的数据以 title 来分组
 SELECT title, COUNT(*) FROM table01 GROUP BY title;
 
@@ -410,8 +412,8 @@ SELECT COALESCE(title, "total"), COUNT(*) AS title_count FROM table01 GROUP BY t
 ```
 
 如图<br/>
-![分组](./images/groupby.png)<br/>
-![分组](./images/groupby1.png)<br/>
+![分组](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/groupby.png)<br/>
+![分组](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/groupby1.png)<br/>
 
 ## MySQL 连接的使用
 
@@ -427,7 +429,7 @@ _你可以在 SELECT, UPDATE 和 DELETE 语句中使用 Mysql 的 `JOIN` 来联�
 - LEFT JOIN（左连接）：获取左表所有记录，即使右表没有对应匹配的记录。
 - RIGHT JOIN（右连接）： 与 LEFT JOIN 相反，用于获取右表所有记录，即使左表没有对应匹配的记录。
 
-```SQL
+```sql
 # 使用 INNER JOIN (也可以省略 INNER 使用 JOIN，效果一样)
 SELECT a.id, b.title FROM table01 a INNER JOIN table02 b ON a.id = b.id;
 
@@ -439,8 +441,8 @@ SELECT a.id, b.title FROM table01 a RIGHT JOIN table02 b ON a.id = b.id;
 ```
 
 如图<br/>
-![连接的使用](./images/innerjoin.png)<br/>
-![连接的使用](./images/join.png)<br/>
+![连接的使用](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/innerjoin.png)<br/>
+![连接的使用](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/join.png)<br/>
 
 ## MySQL NULL 值处理
 
@@ -466,7 +468,7 @@ MySQL 中处理 NULL 使用 IS NULL 和 IS NOT NULL 运算符
 >
 > columnName1，columnName2 为 int 型，当 columnName2 中，有值为 null 时，columnName1+columnName2=null， ifnull(columnName2,0) 把 columnName2 中 null 值转为 0
 
-```SQL
+```sql
 # 创建 table03
 CREATE TABLE table03 (id INT AUTO_INCREMENT, title VARCHAR(100), age INT, PRIMARY KEY (id));
 
@@ -489,18 +491,18 @@ SELECT *, id + ifnull(age, 0) FROM table03;
 ```
 
 如图<br/>
-![NULL 值处理](./images/nullandnot.png)
+![NULL 值处理](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/nullandnot.png)
 
 ## MySQL 正则表达式
 
 ---
 
 借图<br/>
-![正则表达式](./images/regexp1.png)
+![正则表达式](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/regexp1.png)
 
 > SELECT column1, column2... FROM table_name WHERE column1 REGEXP regexp, column...;
 
-```SQL
+```sql
 # 筛选 title 中带 y 的数据
 SELECT title FROM table01 WHERE title REGEXP 'y';
 
@@ -509,22 +511,75 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 ```
 
 如图<br/>
-![正则表达式](./images/regexp2.png)
+![正则表达式](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/regexp2.png)
 
 ## MySQL 事务
 
 ---
 
-语法 :
+_MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你既需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！_
 
-> xxx
+- 在 MySQL 中只有使用了 Innodb 数据库引擎的数据库或表才支持事务。
+- 事务处理可以用来维护数据库的完整性，保证成批的 SQL 语句要么全部执行，要么全部不执行。
+- 事务用来管理 insert,update,delete 语句
 
-```SQL
+事务控制语句 ：
 
+> `BEGIN` 或 `START TRANSACTION` 显式地开启一个事务；
+>
+> `COMMIT` 也可以使用 `COMMIT WORK`，不过二者是等价的。COMMIT 会提交事务，并使已对数据库进行的所有修改成为永久性的；
+>
+> `ROLLBACK` 也可以使用 `ROLLBACK WORK`，不过二者是等价的。回滚会结束用户的事务，并撤销正在进行的所有未提交的修改；
+>
+> `SAVEPOINT identifier`，`SAVEPOINT` 允许在事务中创建一个保存点，一个事务中可以有多个 SAVEPOINT；
+>
+> `RELEASE SAVEPOINT identifier` 删除一个事务的保存点，当没有指定的保存点时，执行该语句会抛出一个异常；
+>
+> `ROLLBACK TO identifier` 把事务回滚到标记点；
+>
+> `SET TRANSACTION` 用来设置事务的隔离级别。InnoDB 存储引擎提供事务的隔离级别有 READ UNCOMMITTED、READ COMMITTED、REPEATABLE READ 和 SERIALIZABLE。
+
+**MYSQL 事务处理主要有两种方法：** <br/>
+
+1. 用 BEGIN, ROLLBACK, COMMIT 来实现
+
+   - BEGIN 开始一个事务
+   - ROLLBACK 事务回滚
+   - COMMIT 事务确认
+
+2. 直接用 SET 来改变 MySQL 的自动提交模式 :
+
+   - SET AUTOCOMMIT=0 禁止自动提交
+   - SET AUTOCOMMIT=1 开启自动提交
+
+这里就只举例事务的 BEGIN, ROLLBACK, COMMIT, 其他的下次另起一文探讨
+
+```sql
+# 创建数据表并连续插入3条数据
+CREATE TABLE table04 (id INT AUTO_INCREMENT, title VARCHAR(100), PRIMARY KEY (id));
+# 开始事务
+BEGIN;
+INSERT INTO table04 (title) VALUES ("HTML");
+INSERT INTO table04 (title) VALUES ("CSS");
+INSERT INTO table04 (title) VALUES ("JAVASCRIPT");
+# 提交事务
+COMMIT;
+SELECT * FROM table04;
+
+# 开始事务
+BEGIN;
+INSERT INTO table04 (title) VALUES ("JAVASE");
+INSERT INTO table04 (title) VALUES ("JAVAEE");
+# 回滚事务
+ROLLBACK;
+# 提交事务
+COMMIT;
+SELECT * FROM table04;
 ```
 
 如图<br/>
-![事务](./images/)
+![事务](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/commit.png)<br/>
+![事务](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/rollback.png)<br/>
 
 ## MySQL ALTER 命令
 
@@ -534,12 +589,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![ALTER 命令](./images/)
+![ALTER 命令](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 索引
 
@@ -549,12 +604,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![索引](./images/)
+![索引](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 临时表
 
@@ -564,12 +619,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![临时表](./images/)
+![临时表](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 复制表
 
@@ -579,12 +634,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![复制表](./images/)
+![复制表](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 元数据
 
@@ -594,12 +649,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![元数据](./images/)
+![元数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 序列使用
 
@@ -609,12 +664,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![序列使用](./images/)
+![序列使用](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 处理重复数据
 
@@ -624,12 +679,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![处理重复数据](./images/)
+![处理重复数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL SQL 注入
 
@@ -639,12 +694,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![SQL 注入](./images/)
+![SQL 注入](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 导出数据
 
@@ -654,12 +709,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![导出数据](./images/)
+![导出数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 导入数据
 
@@ -669,12 +724,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![导入数据](./images/)
+![导入数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 函数
 
@@ -684,12 +739,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![函数](./images/)
+![函数](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL 运算符
 
@@ -699,12 +754,12 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![运算符](./images/)
+![运算符](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
 
 ## MySQL xxx
 
@@ -714,9 +769,9 @@ SELECT title FROM table01 WHERE title REGEXP 'o';
 
 > xxx
 
-```SQL
+```sql
 
 ```
 
 如图<br/>
-![xxx](./images/)
+![xxx](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/)
