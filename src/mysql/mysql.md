@@ -123,10 +123,10 @@ DROP TABLE table01;
 > DESC table_name;
 
 ```sql
-# show
+--- show
 SHOW COLUMNS FROM table04;
 
-# desc
+--- desc
 DESC table04;
 ```
 
@@ -150,17 +150,17 @@ DESC table04;
 现在, 让我们把 table01 创建回去, 再往里面的 title 列添加一些数据吧
 
 ```sql
-# 创建 table01 数据表
+--- 创建 table01 数据表
 CREATE TABLE IF NOT EXISTS `table01` (
     id INT AUTO_INCREMENT,
     title VARCHAR(100),
     PRIMARY KEY (id)
 );
 
-# 向 table01 数据表里的 title 列添加一行数据
+--- 向 table01 数据表里的 title 列添加一行数据
 INSERT INTO table01 (title) VALUES ('tom');
 
-# 查询 table01 数据表, 看下我们插入的数据
+--- 查询 table01 数据表, 看下我们插入的数据
 SELECT * FROM table01;
 ```
 
@@ -188,25 +188,25 @@ SELECT * FROM table01;
 为了演示该语法, 让我们再去添加一些数据吧
 
 ```sql
-# 添加更多的数据
+--- 添加更多的数据
 INSERT INTO table01 (title) VALUES ('tony');
 INSERT INTO table01 (title) VALUES ('lily');
 INSERT INTO table01 (title) VALUES ('lucy');
 INSERT INTO table01 (title) VALUES ('jack');
 
-# 查询所有
+--- 查询所有
 SELECT * FROM table01;
 
-# 只查询 title 列
+--- 只查询 title 列
 SELECT title FROM table01;
 
-# 只查询 title 为 tony 的列
+--- 只查询 title 为 tony 的列
 SELECT * FROM table01 WHERE title = 'tony';
 
-# 限制查询的数量
+--- 限制查询的数量
 SELECT * FROM table01 LIMIT 2;
 
-# 设置查询数据的偏移量
+--- 设置查询数据的偏移量
 SELECT * FROM table01 LIMIT 2 OFFSET 1;
 
 ```
@@ -255,13 +255,13 @@ SELECT title FROM table01 WHERE title = "tome" OR title = "tony";
 - 你可以在一个单独表中同时更新数据。
 
 ```sql
-# 看下表结构先
+--- 看下表结构先
 SELECT * FROM table01;
 
-# 修改 title = tome 的字段, 将 tome 改为 newtome
+--- 修改 title = tome 的字段, 将 tome 改为 newtome
 UPDATE table01 SET title = "newtome" WHERE id = 1;
 
-# 查看修改结果
+--- 查看修改结果
 SELECT * FROM table01;
 ```
 
@@ -280,13 +280,13 @@ SELECT * FROM table01;
 - 你可以在 WHERE 子句中指定任何条件
 
 ```sql
-# 查看表内容
+--- 查看表内容
 SELECT * FROM table01;
 
-# 删除 id = 1 的这一行数据
+--- 删除 id = 1 的这一行数据
 DELETE FROM table01 WHERE id = 1;
 
-# 再次查看表内容
+--- 再次查看表内容
 SELECT * FROM table01;
 ```
 
@@ -316,7 +316,7 @@ _如果没有使用百分号 %, LIKE 子句与等号 = 的效果是一样的。_
 - 该字段可用于做模糊查询
 
 ```sql
-# 查询 title 中带有 y 字符的行
+--- 查询 title 中带有 y 字符的行
 SELECT * FROM table01 WHERE title LIKE "%y";
 ```
 
@@ -346,17 +346,17 @@ _MySQL UNION 操作符用于连接两个以上的 SELECT 语句的结果组合�
 - ALL: 可选，返回所有结果集，包含重复数据。
 
 ```sql
-# 再建一个表 table02
+--- 再建一个表 table02
 CREATE TABLE table02 ( id INT AUTO_INCREMENT, title VARCHAR(100), PRIMARY KEY (id) );
 
-# 往 table02 中插入几条数据, 数据中包含几个和 table01 重复的数据
+--- 往 table02 中插入几条数据, 数据中包含几个和 table01 重复的数据
 INSERT INTO table02 (title) VALUES ("tony");
 INSERT INTO table02 (title) VALUES ("lily");
 INSERT INTO table02 (title) VALUES ("lucy");
 INSERT INTO table02 (title) VALUES ("tome");
 INSERT INTO table02 (title) VALUES ("haha");
 
-# 用 union 整合数据
+--- 用 union 整合数据
 SELECT * FROM table01 UNION DISTINCT SELECT * FROM table02;
 SELECT title FROM table01 UNION DISTINCT SELECT title FROM table02;
 
@@ -383,7 +383,7 @@ SELECT title FROM table01 UNION DISTINCT SELECT title FROM table02;
 - 你可以添加 WHERE...LIKE 子句来设置条件。
 
 ```sql
-# 将 table01 的数据以 id 降序来查询
+--- 将 table01 的数据以 id 降序来查询
 SELECT * FROM table01 ORDER BY id DESC;
 ```
 
@@ -417,16 +417,16 @@ _在分组的列上我们可以使用 COUNT, SUM, AVG,等函数。_
   - 如果 a\==null,则选择 b；如果 b==null,则选择 c；如果 a!=null,则选择 a；如果 a b c 都为 null ，则返回为 null（没意义）
 
 ```sql
-# 将 table01 中的数据以 title 来分组
+--- 将 table01 中的数据以 title 来分组
 SELECT title, COUNT(*) FROM table01 GROUP BY title;
 
-# 用 as 将查询的数据重命名
+--- 用 as 将查询的数据重命名
 SELECT title, COUNT(*) AS title_count FROM table01 GROUP BY title;
 
-# 用 WITH ROLLUP 对数据进行再次统计
+--- 用 WITH ROLLUP 对数据进行再次统计
 SELECT title, COUNT(*) AS title_count FROM table01 GROUP BY title WITH ROLLUP;
 
-# 用 coalesce 处理 NULL
+--- 用 coalesce 处理 NULL
 SELECT COALESCE(title, "total"), COUNT(*) AS title_count FROM table01 GROUP BY title WITH ROLLUP;
 ```
 
@@ -449,13 +449,13 @@ _你可以在 SELECT, UPDATE 和 DELETE 语句中使用 Mysql 的 `JOIN` 来联�
 - RIGHT JOIN（右连接）： 与 LEFT JOIN 相反，用于获取右表所有记录，即使左表没有对应匹配的记录。
 
 ```sql
-# 使用 INNER JOIN (也可以省略 INNER 使用 JOIN，效果一样)
+--- 使用 INNER JOIN (也可以省略 INNER 使用 JOIN，效果一样)
 SELECT a.id, b.title FROM table01 a INNER JOIN table02 b ON a.id = b.id;
 
-# 使用 LEFT JOIN 获取左表所有记录，即使右表没有对应匹配的记录。
+--- 使用 LEFT JOIN 获取左表所有记录，即使右表没有对应匹配的记录。
 SELECT a.id, b.title FROM table01 a LEFT JOIN table02 b ON a.id = b.id;
 
-# 使用 RIGHT JOIN 获取右表所有记录，即使左表没有对应匹配的记录
+--- 使用 RIGHT JOIN 获取右表所有记录，即使左表没有对应匹配的记录
 SELECT a.id, b.title FROM table01 a RIGHT JOIN table02 b ON a.id = b.id;
 ```
 
@@ -488,23 +488,23 @@ MySQL 中处理 NULL 使用 IS NULL 和 IS NOT NULL 运算符
 > columnName1，columnName2 为 int 型，当 columnName2 中，有值为 null 时，columnName1+columnName2=null， ifnull(columnName2,0) 把 columnName2 中 null 值转为 0
 
 ```sql
-# 创建 table03
+--- 创建 table03
 CREATE TABLE table03 (id INT AUTO_INCREMENT, title VARCHAR(100), age INT, PRIMARY KEY (id));
 
-# 添加 5 条数据给 table03
+--- 添加 5 条数据给 table03
 INSERT INTO table03 (title) VALUES ("TOMS");
 INSERT INTO table03 (title, age) VALUES ("ALPHA", 16);
 INSERT INTO table03 (title, age) VALUES ("BLOON", 18);
 INSERT INTO table03 (title, age) VALUES ("CRITR", 20);
 INSERT INTO table03 (title) VALUES ("DIRROO");
 
-# 查询 age 为空的数据
+--- 查询 age 为空的数据
 SELECT * FROM table03 WHERE age IS NULL;
 
-# 查询 age 不为空的数据
+--- 查询 age 不为空的数据
 SELECT * FROM table03 WHERE age IS NOT NULL;
 
-# 把 id 和 age 相加
+--- 把 id 和 age 相加
 SELECT *, id + ifnull(age, 0) FROM table03;
 
 ```
@@ -522,10 +522,10 @@ SELECT *, id + ifnull(age, 0) FROM table03;
 > SELECT column1, column2... FROM table_name WHERE column1 REGEXP regexp, column...;
 
 ```sql
-# 筛选 title 中带 y 的数据
+--- 筛选 title 中带 y 的数据
 SELECT title FROM table01 WHERE title REGEXP 'y';
 
-# 筛选 title 中带 o 的数据
+--- 筛选 title 中带 o 的数据
 SELECT title FROM table01 WHERE title REGEXP 'o';
 ```
 
@@ -574,24 +574,24 @@ _MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说�
 这里就只举例事务的 BEGIN, ROLLBACK, COMMIT, 其他的下次另起一文探讨
 
 ```sql
-# 创建数据表并连续插入3条数据
+--- 创建数据表并连续插入3条数据
 CREATE TABLE table04 (id INT AUTO_INCREMENT, title VARCHAR(100), PRIMARY KEY (id));
-# 开始事务
+--- 开始事务
 BEGIN;
 INSERT INTO table04 (title) VALUES ("HTML");
 INSERT INTO table04 (title) VALUES ("CSS");
 INSERT INTO table04 (title) VALUES ("JAVASCRIPT");
-# 提交事务
+--- 提交事务
 COMMIT;
 SELECT * FROM table04;
 
-# 开始事务
+--- 开始事务
 BEGIN;
 INSERT INTO table04 (title) VALUES ("JAVASE");
 INSERT INTO table04 (title) VALUES ("JAVAEE");
-# 回滚事务
+--- 回滚事务
 ROLLBACK;
-# 提交事务
+--- 提交事务
 COMMIT;
 SELECT * FROM table04;
 ```
@@ -644,31 +644,31 @@ _当我们需要修改数据表名或者修改数据表字段时，就需要使�
 > `ALTER TABLE table_name RENAME TO new_table_name;`
 
 ```sql
-# 查看 table4 的表结构
+--- 查看 table4 的表结构
 SHOW COLUMNS FROM table04;
 
-# 往 table04 中添加一列, 列名为 sex, 类型为 varchar(2)
+--- 往 table04 中添加一列, 列名为 sex, 类型为 varchar(2)
 ALTER TABLE table04 ADD sex varchar(2);
 
-# 再次查看 table4 的表结构, 新增了 sex 列
+--- 再次查看 table4 的表结构, 新增了 sex 列
 SHOW COLUMNS FROM table04;
 
-# 删除刚刚创建的列 sex
+--- 删除刚刚创建的列 sex
 ALTER TABLE table04 DROP sex;
 
-# 再次查看 table4 的表结构, 明显没有了 sex 列
+--- 再次查看 table4 的表结构, 明显没有了 sex 列
 SHOW COLUMNS FROM table04;
 
-# 更改 table4 中 title 字段的类型为 varchar(50)
+--- 更改 table4 中 title 字段的类型为 varchar(50)
 ALTER TABLE table04 MODIFY title VARCHAR(50);
 
-# 再次查看 table4 的表结构, title 字段的 varchar(100) 变成了 varchar(50)
+--- 再次查看 table4 的表结构, title 字段的 varchar(100) 变成了 varchar(50)
 SHOW COLUMNS FROM table04;
 
-# 更改 table04 中 title 字段名为 name
+--- 更改 table04 中 title 字段名为 name
 ALTER TABLE table04 CHANGE title name VARCHAR(50);
 
-# 再次查看 table4 的表结构, title 字段名变成了 name
+--- 再次查看 table4 的表结构, title 字段名变成了 name
 SHOW COLUMNS FROM table04;
 ```
 
@@ -714,15 +714,15 @@ CREATE TEMPORARY TABLE temp (id INT PRIMARY KEY, name VARCHAR(20));
 > CREATE TABLE new_table AS (SELECT column_name1, column_name2 AS new_column_name2... FROM sourceTable);
 
 ```sql
-# 方式一
+--- 方式一
 CREATE TABLE table05 (id INT PRIMARY KEY, name VARCHAR(50));
 INSERT INTO table05 (id, name) SELECT id, name FROM table04;
 
-# 方式二
+--- 方式二
 CREATE TABLE table06 LIKE table05;
 INSERT INTO table06 SELECT * FROM table05;
 
-# 方式三
+--- 方式三
 CREATE TABLE table07 (id INT) AS (SELECT * FROM table06);
 ```
 
@@ -760,12 +760,12 @@ _MySQL 序列是一组整数：1, 2, 3, ...，由于一张数据表只能有一�
 > ALTER TABLE table_name ADD id INT UNSIGNED NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (id);
 
 ```sql
-# 我们来重置一下 table05 的序列吧
+--- 我们来重置一下 table05 的序列吧
 SELECT * FROM table05;
 ALTER TABLE table05 DROP id;
 ALTER TABLE table05 ADD id INT PRIMARY KEY AUTO_INCREMENT;
 
-# 如果需要 id 在第一列显示, 在 add 命令中加 first 字段即可
+--- 如果需要 id 在第一列显示, 在 add 命令中加 first 字段即可
 ALTER TABLE table05 ADD id INT PRIMARY KEY AUTO_INCREMENT FIRST;
 ```
 
@@ -799,5 +799,5 @@ REPLACE INTO table08 (title, age) VALUES ("tom", 20);
 REPLACE INTO table08 (title, age) VALUES ("tony", 20);
 ```
 
-如图<br/>
+如图, 用 REPLACE INTO 插入的数据对 INSERT INTO 插入的数据不敏感<br/>
 ![处理重复数据](https://raw.githubusercontent.com/spiritGo/CDN/master/src/mysql/images/repeat.png)
